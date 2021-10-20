@@ -1,4 +1,4 @@
 function submit(){
-  var hello = document.getElementById('select').text
+  var hello = document.getElementById('select').value
   window.alert(hello)
 }

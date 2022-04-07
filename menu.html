@@ -1,0 +1,67 @@
+<p id = "a" onlick = "no()"></p>
+
+<!DOCTYPE html>
+<html id="home" onload="mainMenuMusic()">
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+   <link href="https://fonts.googleapis.com/css2?family=VT323&amp;display=swap" rel="stylesheet">
+  
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js" integrity="sha512-4P0ZJ49OMXe3jXT+EsEaq82eNwFeyYL81LeHGzGcEhowFbTqeQ80q+NEkgsE8tHPs6aCqvi7U+XWliAjDmT5Lg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/addons/p5.sound.js" integrity="sha512-U2sgwrFhl+Tgx9iGH9h5Ba2WyIjyCes+D0prtIFw3a0V+/fkaeL5Cd/VjyPHno9kUPE1rnNhBGTyvtZsfJp0xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+  <title>The RAKE</title>
+  </head>
+  <body>
+    
+    <div id="notice">
+      <h1 id="gameName">THE RAKES</h1>
+      <br>
+      <h2 id="atten">PLOT</h2>
+      <p id="attenPara">I've always heard stories of how haunted the local woods was.  <br><br>Frankly, my friend and I didn't believe in them. Now, he's missing, and it's all because of a dumb video. <br><br>I must find him.  </p>
+      <p id="attenPara1">* Jumpscare Warning *</p>
+      <button id="okayButton" onclick="buttonSound(); mainMenuMusic(); gotIt()">CONTINUE</button>
+    </div>
+
+     <div id = "hiddenLore">
+      <h1 id="loretitle">THE RAKES</h1>
+      <br>
+      <h2 id="loreplot">LORE</h2>
+      <p id="lorepara"> The Rakes are a group of animatronics believed to be lost in Ragako Woods, with origins dating back to the 1980s.  <br><br>The animatronics reportedly attack humans for unknown reasons and often causes their victims great psychological trauma.  <br><br>But it's not like you're afraid, right?  </p>
+      <button id="loreReturn" onclick="buttonSound(); loreReturn()">BACK</button>
+    </div>
+
+    <!--
+    <div id = "hiddenLore">
+      <h1 id="loretitle">THE RAKE</h1>
+      <br>
+      <h2 id="loreplot">LORE</h2>
+      <p id="lorepara">The Rake is a creature believed to be a humanoid in appearance, with origins dating back to the 1600s.  <br><br>The creature reportedly attacks humans for unknown reasons and often causes its victims great psychological trauma.  <br><br>Should you realize its presence, stay away. </p>
+      <button id="loreReturn" onclick="buttonSound(); loreReturn()">BACK</button>
+    </div>
+    -->
+
+    <script>
+      let gamething = new Audio('Immobile2.mp3');
+      function musicplayed(){
+        gamething.play();
+      }
+      musicplayed();
+    </script>
+    
+    <div id="buttonsBox">
+      <h3 id="menuTITLE">THE RAKES</h3>
+      <button id="start" class="buttonsBoxButton" onclick="buttonSound(); startGame()">PROCEED</button>
+      <button id="settings" class="buttonsBoxButton" onclick="buttonSound(); settingsMenu()">SETTINGS</button>
+      <button id="quit" class="buttonsBoxButton" onclick="plot(); buttonSound()"> PLOT </button> 
+      <button id="lore" class="buttonsBoxButton" onclick="lore(); buttonSound()"> LORE </button>
+    </div>
+    
+    <div id="settingsMenu">
+      <h3 id="settingsTitle">SETTINGS</h3>
+      <button id="music" onclick="buttonSound(); musicChange()">MUSIC ON</button>
+      <button id="soundEffect" onclick="soundEffectChange()">EFFECT ON</button>
+      <button id="settingsExit" onclick="buttonSound(); exitSettings()">BACK</button>
+    </div>
+  </body>
+</html>

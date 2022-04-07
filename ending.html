@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html id="homeEND">
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+   <link href="https://fonts.googleapis.com/css2?family=VT323&amp;display=swap" rel="stylesheet">
+  
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js" integrity="sha512-4P0ZJ49OMXe3jXT+EsEaq82eNwFeyYL81LeHGzGcEhowFbTqeQ80q+NEkgsE8tHPs6aCqvi7U+XWliAjDmT5Lg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/addons/p5.sound.js" integrity="sha512-U2sgwrFhl+Tgx9iGH9h5Ba2WyIjyCes+D0prtIFw3a0V+/fkaeL5Cd/VjyPHno9kUPE1rnNhBGTyvtZsfJp0xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+  <title>ENDING</title>
+  </head>
+  <body>
+
+    <style>
+        #attenEND {
+            color: darkslateblue;
+            font-size: 20px;
+            position: absolute;
+            top: 17%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+          }
+        #homeEND {
+            /** Original background-image forest.gif*/
+            background-color: black;
+            background-image: url(sunrise2.jpg);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            overflow: hidden;
+          }
+
+          #attenParaEND {
+            font-size: 25px;
+            line-height: 30px;
+            position: absolute;
+            top: 52%;
+            transform: translate(-0%,-50%);
+            text-shadow: 1px 1px darkred;
+            padding: 20px;
+          }
+
+          #quitEND {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%,-90%);
+            background-color: black;
+            color: white;
+            width: 18vw;
+            height: 5vh;
+            text-shadow: 1px 1px darkred;
+          }
+          #quitEND:hover {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%,-90%);
+            background-color: white;
+            color: black;
+            width: 18vw;
+            height: 5vh;
+            text-shadow: 1px 1px darkred;
+          }
+          
+          #loreEND{
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%,-90%);
+            background-color: black;
+            color: white;
+            width: 18vw;
+            height: 5vh;
+            text-shadow: 1px 1px darkred;
+          }
+          
+          #loreEND:hover{
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translate(-50%,-90%);
+            background-color: white;
+            color: black;
+            width: 18vw;
+            height: 5vh;
+            text-shadow: 1px 1px darkred;
+          }
+          
+          #startEND {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%,-90%);
+            background-color: black;
+            color: white;
+            width: 18vw;
+            height: 5vh;
+            text-shadow: 1px 1px darkred;
+          }
+          
+          #startEND:hover {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%,-90%);
+            background-color: white;
+            color: black;
+            width: 18vw;
+            height: 5vh;
+            text-shadow: 1px 1px darkred;
+          }
+
+
+  #loreplotEND{
+    color: darkslateblue;
+    font-size: 20px;
+    position: absolute;
+    top: 17%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+   
+  }
+
+  #loreparaEND{
+    font-size: 20px;
+    line-height: 30px;
+    position: absolute;
+    top: 52%;
+    /** To revert Back to original Lore, just delete the entire "left: 5%" command **/
+    left: 5%;
+    transform: translate(-0%,-50%);
+    text-shadow: 1px 1px darkred;
+    padding: 20px;
+  }
+
+  #loretitleEND{
+    width: 25vw;
+    height: 15vh;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    font-size: 40px;
+    color: red;
+  }
+
+    </style>
+    
+    <div id="notice">
+      <h1 id="gameName">You've Escaped THEM</h1>
+      <br>
+      <h2 id="attenEND">But is this the End?</h2>
+      <p id="attenPara1">* Listen To The Music Please ;) *</p>
+      <p id="attenParaEND">I barely made it out the forest <br><br>But it doesn't matter, it's not like the cops or my family will believe me. <br><br>I have my friend's video tapes now; hopefully it'll explain his whereabouts. <br><br>I will find him.  </p>
+      <button id="okayButton" onclick="buttonSound(); mainMenuMusic(); gotIt()">EXTRA</button>
+    </div>
+
+     <div id = "hiddenLore">
+      <h1 id="loretitleEND">"The Boy Who Cried Robot"</h1>
+      <br>
+      <h2 id="loreplotEND">A Boy Claims Moving-Killer Robots in Local Woods</h2>
+      <p id="loreparaEND"> Despite looking like a crazy child, you report the psychopathic animatronics to local police. <br><br> No trace of your friend is found and your family continues to look at you with disappointment. Local newspapers hear your story and title you as <br>"The Boy Who Cried Robot." <br><br> Nonetheless, you remain determine to right your wrong and save your only friend. </p>
+      <button id="loreReturn" onclick="buttonSound(); loreReturn()">BACK</button>
+    </div>
+
+    <!--
+    <div id = "hiddenLore">
+      <h1 id="loretitle">THE RAKE</h1>
+      <br>
+      <h2 id="loreplot">LORE</h2>
+      <p id="lorepara">The Rake is a creature believed to be a humanoid in appearance, with origins dating back to the 1600s.  <br><br>The creature reportedly attacks humans for unknown reasons and often causes its victims great psychological trauma.  <br><br>Should you realize its presence, stay away. </p>
+      <button id="loreReturn" onclick="buttonSound(); loreReturn()">BACK</button>
+    </div>
+    -->
+
+    <script>
+      let gamething = new Audio('Soulful.mp3');
+      function musicplayed(){
+        gamething.play();
+      }
+      musicplayed();
+    </script>
+    
+    
+    <div id="buttonsBox">
+      <h3 id="menuTITLE">THE RAKES</h3>
+      <button id="startEND" class="buttonsBoxButton" onclick="buttonSound(); endIT()">GO HOME (END OF GAME)</button>
+      <!--
+      <button id="settings" class="buttonsBoxButton" onclick="buttonSound(); settingsMenu()">SETTINGS</button>
+    -->
+      <button id="quitEND" class="buttonsBoxButton" onclick="plot(); buttonSound()"> BACK </button> 
+      <button id="loreEND" class="buttonsBoxButton" onclick="lore(); buttonSound()"> LOCAL NEWS </button>
+    </div>
+    
+
+    <div id="settingsMenu">
+      <h3 id="settingsTitle">SETTINGS</h3>
+      <button id="music" onclick="buttonSound(); musicChange()">MUSIC ON</button>
+      <button id="soundEffect" onclick="soundEffectChange()">EFFECT ON</button>
+      <button id="settingsExit" onclick="buttonSound(); exitSettings()">BACK</button>
+    </div>
+
+    <script>
+        function endIT(){
+            window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        }
+    </script>
+    
+  </body>
+</html>

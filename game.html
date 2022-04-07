@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html id = "secondhome" class="level1" onload="mainMenuMusic()">
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js" integrity="sha512-4P0ZJ49OMXe3jXT+EsEaq82eNwFeyYL81LeHGzGcEhowFbTqeQ80q+NEkgsE8tHPs6aCqvi7U+XWliAjDmT5Lg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://unpkg.com/p5"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/addons/p5.sound.js" integrity="sha512-U2sgwrFhl+Tgx9iGH9h5Ba2WyIjyCes+D0prtIFw3a0V+/fkaeL5Cd/VjyPHno9kUPE1rnNhBGTyvtZsfJp0xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  </head>
+  <body>
+
+    <div id="deathnotice">
+      <h2 id="deathatten">YOU DIED</h2>
+      <p id="deathattenPara"></p>
+      <button id="deathokayButton" onclick="buttonSound(); deathreturn();">RESTART</button>
+    </div>
+
+    <div id="deathscare">
+      <div id ="deathimage"></div>
+    </div>
+
+  </body>
+
+  <script>
+//======================================================================================
+
+//Overall Stats
+let screen = 0;
+
+let x= 200;
+let y= -20;
+
+let s = 500;
+let z = 500;
+
+let speed = 20;
+let secretspeed = 20;
+let score= 0;
+let scoretwo = 10;
+let scorethree = 20;
+
+//======================================================================================
+
+//Button for when the death screen appears
+function deathreturn(){
+  gid('deathnotice').style.visibility = "hidden";
+  gid('deathscare').style.visibility = "hidden";
+}
+
+function deathScreen(){
+  gid('deathnotice').style.visibility = "visible";
+  gid('deathscare').style.visibility = "visible";
+}
+
+function endScreen(){
+		clear()
+		textAlign(CENTER);
+		text('GAME OVER', width / 2, height / 2)
+  	text("Better Luck Next Time", width / 2, height / 2 + 20)
+		text('click to play again', width / 2, height / 2 + 40);
+}
+//======================================================================================
+
+//Setup
+function setup() {
+  createCanvas(windowWidth,windowHeight);
+}
+
+//======================================================================================
+
+//Screen functions
+function draw() {
+	if(screen == 0){
+    startScreen()
+  }else if(screen == 1){
+  	gameOn()
+  }else if(screen==2){
+  	endScreen()
+  }else if(screen == 3){
+    leveltwo()
+  }else if(screen == 4){
+    gameOnTwo()
+  }else if (screen == 5){
+    levelthree()
+  }else if (screen == 6){
+    gameOnThree()
+  }else if(screen =69){
+    anotherGame();
+  }
+}
+//======================================================================================
+
+
+
+//======================================================================================
+
+//Click to enter functions
+function mousePressed(){
+	if(screen==0){
+  	screen=1
+    click.play();
+    mainMusic();
+  }else if(screen==2){
+  	screen=0
+    click.play();
+  }else if(screen==3){
+    screen=4
+    click.play();
+  }else if(screen==5){
+    screen=6
+    click.play();
+  }
+}
+//======================================================================================
+
+//Audio Files
+let click = new Audio('Click.mp4')
+function win(){
+  click.play();
+}
+    
+let scream = new Audio('Scream.mp4');
+function death(){
+  scream.play();
+}
+
+let cat = new Audio('Caught.mp4');
+function captured(){
+  cat.play();
+}
+
+let cheer = new Audio('Shine.mp3');
+function cheering(){
+  cheer.play();
+}
+
+let mainMenu = new Audio('Beast.mp3');
+function mainMusic(){
+  mainMenu.play();
+  mainMenu.loop();
+  mainMenu.volume(0.9);
+}
+
+let damage = new Audio('noHP.mp4');
+function damagetaken(){
+  damage.play();
+}
+
+//
+//let sparkle = new Audio('');
+//function sparkle(){
+//  click.sparkle();
+//}
+//
+
+//======================================================================================
+
+//Changes the X-coordinates of the obstacles randomly
+function pickRandom(){
+	x = random(20,width-20)
+}
+
+function secondpickRandom(){
+  a = random(20,width-20)
+}
+
+function thirdpickRandom(){
+ c = random(20,width-20);
+}
+
+function fourthpickRandom(){
+  e = random(20,width-20);
+}
+
+function fifthpickRandom(){
+  g = random(20,width-20);
+}
+
+function secretpickup(){
+  s = random(20,width-20);
+}
+
+function sixthpickRandom(){
+  i = random(20,width-20);
+}
+
+function seventhpickRandom(){
+  k = random(20,width-20);
+}
+//======================================================================================
+
+//Starting positions of the obstacles
+let a = 900;
+let b = -20;
+let secondspeed = 10;
+
+let c = 500;
+let d = -20;
+let thirdspeed = 13;
+
+let e = 800;
+let f = -20;
+let fourthspeed = 11;
+
+let g = 300;
+let h = -20;
+let fifthspeed = 10;
+
+let i = 400;
+let j = -20;
+let sixthspeed = 11;
+
+let k = 1000;
+let l = -20;
+let seventhspeed = 12;
+
+//======================================================================================
+
+
+
+//======================================================================================
+
+//First Level of the Game
+  function gameOn(){
+  clear()
+  textSize(20);
+  text("Fragments:" + score + "/10", 200,20,50)
+  text("Red Balls: +1 Fragment", 500,20,600)
+  fill(color('Pink'))
+  text("Pink Ball: +5 Fragments", 850,20,500)
+  fill(color('Yellow'))
+  text("Yellow Balls: Instant Death",1200,20,500)
+
+  fill(color('pink'))
+  ellipse(s,z,10)
+  z+= secretspeed;
+  
+  if(z>height){
+    z=-20;
+  }
+
+  if(z==-20){
+    secretpickup();
+  }
+
+  if(z>height-10 && s>mouseX-20 && s<mouseX+20){
+  	y=-20
+    score+= 5
+    cheering();
+  }
+  
+  fill(color('red'))
+  ellipse(x,y,20)
+	y+= speed;
+
+  if(y>height){
+    score += -1;
+    y = -20;
+    damagetaken();
+	 }
+
+   if(score < 0){
+    reset();
+    death();
+  	screen = 2;
+    deathScreen();
+   }
+
+  if(y>height-10 && x>mouseX-20 && x<mouseX+20){
+  	y=-20
+    speed+=0.5
+    score+= 1
+    captured();
+  }
+
+	if(y==-20){
+  	pickRandom();
+  }
+
+  fill(color('Yellow'))
+  ellipse(a,b,50)
+  b+= secondspeed;
+
+  if(b>height){
+    b=-20;
+  }
+
+  if(b==-20){
+    secondpickRandom();
+  }
+
+  if(b>height-20 && a>mouseX-40 && a<mouseX+40){
+    reset();
+    death();
+  	screen = 2;
+    deathScreen();
+  }
+
+  fill(color('Yellow'))
+  ellipse(c,d,50)
+  d+= thirdspeed;
+
+  if(d>height){
+    d=-20;
+  }
+  if(d==-20){
+    thirdpickRandom();
+  }
+
+  if(d>height-20 && c>mouseX-40 && c<mouseX+40){
+    reset();
+    death();
+  	screen = 2;
+    deathScreen();
+  }
+
+  fill(color('red'))
+  rectMode(CENTER)
+  rect(mouseX,height-10,50,30)
+
+  if(score == 10 || score > 10 ){
+    screen = 3
+  }
+}
+//======================================================================================
+
+
+//Second Level of the Game
+  function gameOnTwo(){
+  clear()
+  textSize(20);
+  text("Fragments:" + scoretwo + "/20" , 200,20,50)
+  text("Red Balls: +1 Fragment", 500,20,600)
+  fill(color('Pink'))
+  text("Pink Ball: +5 Fragments", 850,20,500)
+  fill(color('Yellow'))
+  text("Yellow Balls: Instant Death",1200,20,500)
+  fill(color('Yellow'))
+
+  fill(color('pink'))
+  ellipse(s,z,10)
+  z+= secretspeed;
+  
+  if(z>height){
+    z=-20;
+  }
+
+  if(z==-20){
+    secretpickup();
+  }
+
+  if(z>height-10 && s>mouseX-20 && s<mouseX+20){
+  	y=-20
+    scoretwo+= 5
+    cheering();
+  }
+  
+  fill(color('red'))
+  ellipse(x,y,20,20)
+  y+= speed;
+
+  if(y>height-10 && x>mouseX-20 && x<mouseX+20){
+  	y=-20
+    scoretwo+= 1
+    captured();
+  }
+
+	if(y==-20){
+  	pickRandom();
+  }
+
+  if(y>height){
+    scoretwo += -2;
+    y = -20;
+    damagetaken();
+	 }
+
+  fill(color('Yellow'))
+  ellipse(a,b,50)
+  b+= secondspeed;
+
+  if(b>height){
+    b=-20;
+  }
+
+  if(b==-20){
+    secondpickRandom();
+  }
+
+  fill(color('Yellow'))
+  ellipse(c,d,50)
+  d+= thirdspeed;
+
+  if(d>height){
+    d=-20;
+  }
+  if(d==-20){
+    thirdpickRandom();
+  }
+
+  if(d>height-20 && c>mouseX-40 && c<mouseX+40){
+    reset();
+    death();
+  	screen = 3;
+    deathScreen();
+  }
+
+  fill(color('Yellow'))
+  ellipse(e,f,50)
+
+  f+= secondspeed;
+
+  if(f>height){
+    f=-20;
+  }
+
+  if(f==-20){
+    fourthpickRandom();
+  }
+
+  if(f>height-20 && e>mouseX-40 && e<mouseX+40){
+    reset();
+    death();
+  	screen = 3;
+    deathScreen();
+  }
+
+  fill(color('Yellow'))
+  ellipse(g,h,50)
+  h+= thirdspeed;
+
+  if(h>height){
+    h=-20;
+  }
+
+  if(h==-20){
+    fifthpickRandom();
+  }
+
+  if(h>height-20 && g>mouseX-40 && g<mouseX+40){
+    reset();
+    death();
+  	screen = 3;
+    deathScreen();
+  }
+
+  if(scoretwo < 0){
+    reset();
+    death();
+  	screen = 3;
+    deathScreen();
+   }
+
+  fill(color('red'))
+  rectMode(CENTER)
+  rect(mouseX,height-10,50,30)
+
+  if(scoretwo == 20 || scoretwo > 20){
+    screen = 5
+  }
+}  
+//======================================================================================
+    
+
+//Third Level of The Game
+function gameOnThree(){
+  clear()
+  textSize(20);
+  text("Fragments:" + scorethree + "/30",200,20,50)
+  text("Red Balls: +1 Fragment", 500,20,600)
+  fill(color('Pink'))
+  text("Pink Ball: +5 Fragments", 850,20,500)
+  fill(color('Yellow'))
+  text("Yellow Balls: Instant Death",1200,20,500)
+  fill(color('Yellow'))
+
+  fill(color('pink'))
+  ellipse(s,z,10)
+  z+= secretspeed;
+  
+  if(z>height){
+    z=-20;
+  }
+
+  if(z==-20){
+    secretpickup();
+  }
+
+  if(z>height-10 && s>mouseX-20 && s<mouseX+20){
+  	y=-20
+    scorethree+= 5
+    cheering();
+  }
+
+  fill(color('red'))
+  ellipse(x,y,20,20)
+  y+= speed;
+
+  if(y>height-10 && x>mouseX-20 && x<mouseX+20){
+  	y=-20
+    scorethree+= 1
+    captured();
+  }
+
+	if(y==-20){
+  	pickRandom();
+  }
+
+  if(y>height){
+    scorethree += -3;
+    y = -20;
+    damagetaken();
+	 }
+
+  fill(color('Yellow'))
+  ellipse(a,b,50)
+  b+= secondspeed;
+
+  if(b>height){
+    b=-20;
+  }
+
+  if(b==-20){
+    secondpickRandom();
+  }
+
+  if(b>height-20 && a>mouseX-40 && a<mouseX+40){
+    reset();
+    death();
+  	screen = 5;
+    deathScreen();
+  }
+
+  fill(color('Yellow'))
+  ellipse(c,d,50)
+  d+= thirdspeed;
+
+  if(d>height){
+    d=-20;
+  }
+  if(d==-20){
+    thirdpickRandom();
+  }
+
+  if(d>height-20 && c>mouseX-40 && c<mouseX+40){
+    reset();
+    death();
+  	screen = 5;
+    deathScreen();
+  }
+
+  fill(color('Yellow'))
+  ellipse(e,f,50)
+
+  f+= secondspeed;
+
+  if(f>height){
+    f=-20;
+  }
+
+  if(f==-20){
+    fourthpickRandom();
+  }
+
+  if(f>height-20 && e>mouseX-40 && e<mouseX+40){
+    reset();
+    death();
+  	screen = 5;
+    deathScreen();
+  }
+
+  fill(color('Yellow'))
+  ellipse(g,h,50)
+  h+= thirdspeed;
+
+  if(h>height){
+    h=-20;
+  }
+
+  if(h==-20){
+    fifthpickRandom();
+  }
+
+  if(h>height-20 && g>mouseX-40 && g<mouseX+40){
+    reset();
+    death();
+  	screen = 5;
+    deathScreen();
+  }
+
+  if(scorethree < 0){
+    reset();
+    death();
+  	screen = 5;
+    deathScreen();
+   }
+
+   fill(color('Yellow'))
+   ellipse(i,j,50)
+   j+= sixthspeed;
+
+
+  if(j>height){
+    j=-20;
+  }
+
+  if(j==-20){
+    sixthpickRandom();
+  }
+
+  if(j>height-20 && i>mouseX-40 && i<mouseX+40){
+    reset();
+    death();
+  	screen = 5;
+    deathScreen();
+  }
+
+   fill(color('Yellow'))
+   ellipse(k,l,50)
+   l+= seventhspeed;
+
+   if(l>height){
+     l=-20;
+   }
+ 
+   if(l==-20){
+     seventhpickRandom();
+   }
+
+   if(l>height-20 && k>mouseX-40 && k<mouseX+40){
+    reset();
+    death();
+  	screen = 5;
+    deathScreen();
+  }
+
+  fill(color('red'))
+  rectMode(CENTER)
+  rect(mouseX,height-10,50,30)
+
+  if(scorethree == 30 || scorethree > 30){
+    screen = 69;
+    window.location.href="cave.html";
+  }
+}
+//======================================================================================
+
+//The Welcoming Pages of the Game
+function leveltwo(){
+    clear()
+		fill(255)
+    textSize(40)
+		textAlign(CENTER);
+		text('You find footsteps that leads to more video fragments...', width / 2, height / 2)
+		text("Collect another 10 fragments", width / 2, height / 2 + 40);
+    text('Click to START', width / 2, height / 2 + 80);
+		leveltworeset();
+}
+
+function levelthree(){
+    clear()
+		fill(255)
+    textSize(40)
+		textAlign(CENTER);
+		text('Another trail of fragments leads to a cave', width / 2, height / 2)
+		text('Collect another 10 fragments', width / 2, height / 2 + 40);
+    text('Click to START', width / 2, height / 2 + 80);
+		levelthreereset();
+}
+
+function anotherGame(){
+  clear()
+	fill(255)
+  textSize(50);
+	textAlign(CENTER);
+	text(' Teleporting ', width / 2, height / 2)
+
+}
+//======================================================================================
+    
+//Start and end screens
+function startScreen(){
+    clear()
+		fill(255)
+		textAlign(CENTER);
+    textSize(40);
+		text("Collect 10 Fragments with your RED box", width / 2, height / 2)
+    text("Movement: Use Mouse Pad", width / 2, height / 2 + 40);
+		text("Note: You lose points if you miss the red balls", width / 2, height / 2 + 80);
+    text('Click to START', width / 2, height / 2 + 120);
+	  reset();
+}
+//======================================================================================
+
+//Quick Easy Shortcut
+function gid(el) {
+  return document.getElementById(el);
+}
+//======================================================================================
+
+//Game reset funcitons
+function reset(){
+	score=0;
+  speed=4;
+  y=-20;
+  b=-20;
+  d=-20;
+  f=-20;
+  h=-20;
+  j=-20;
+  l=-20;
+}
+
+function leveltworeset(){
+  scoretwo=10;
+  speed=8;
+  y=-20;
+}
+
+function levelthreereset(){
+  scorethree = 20;
+  speed = 10;
+  y = -20;
+}
+//======================================================================================
+
+  </script>
+    
+  </body>
+</html>

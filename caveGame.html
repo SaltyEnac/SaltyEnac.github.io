@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html id = "thirdhome" class="level1" onload="mainMenuMusic()">
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js" integrity="sha512-4P0ZJ49OMXe3jXT+EsEaq82eNwFeyYL81LeHGzGcEhowFbTqeQ80q+NEkgsE8tHPs6aCqvi7U+XWliAjDmT5Lg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://unpkg.com/p5"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/addons/p5.sound.js" integrity="sha512-U2sgwrFhl+Tgx9iGH9h5Ba2WyIjyCes+D0prtIFw3a0V+/fkaeL5Cd/VjyPHno9kUPE1rnNhBGTyvtZsfJp0xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  </head>
+  <body>
+
+    <div id="deathnotice">
+      <h2 id="deathatten">YOU DIED</h2>
+      <p id="deathattenPara"></p>
+      <button id="deathokayButton" onclick="buttonSound(); deathreturn();">RESTART</button>
+    </div>
+
+    <div id="deathscare2">
+      <div id ="deathimage"></div>
+    </div>
+
+  </body>
+  <script>
+//======================================================================================
+
+//Overall Stats
+var screen = 0;
+
+var x= 200;
+var y= -20;
+
+var s = 500;
+var z = 500;
+
+var speed = 20;
+var secretspeed = 20;
+var score= 0;
+var scoretwo = 10;
+var scorethree = 20;
+
+//======================================================================================
+
+//Button for when the death screen appears
+function deathreturn(){
+  gid('deathnotice').style.visibility = "hidden";
+  gid('deathscare2').style.visibility = "hidden";
+}
+
+function deathScreen(){
+  gid('deathnotice').style.visibility = "visible";
+  gid('deathscare2').style.visibility = "visible";
+}
+
+function endScreen(){
+		clear()
+		textAlign(CENTER);
+		text('GAME OVER', width / 2, height / 2)
+  	text("Better Luck Next Time", width / 2, height / 2 + 20)
+		text('click to play again', width / 2, height / 2 + 40);
+}
+//======================================================================================
+
+//Setup
+function setup() {
+  createCanvas(windowWidth,windowHeight);
+  rectMode(CENTER)
+}
+//======================================================================================
+
+//Screen functions
+function draw() {
+	if(screen == 0){
+    startScreen()
+  }else if(screen == 1){
+  	gameOn()
+  }else if(screen==2){
+  	endScreen()
+  }else if(screen == 3){
+    leveltwo()
+  }else if(screen == 4){
+    gameOnTwo()
+  }else if (screen == 5){
+    levelthree()
+  }else if (screen == 6){
+    gameOnThree()
+  }else if(screen =69){
+    anotherGame();
+  }
+}
+
+
+var xr = 700;
+var yr = 700;
+var w = 50;
+
+var score = 0;
+
+
+function restartBalls(){
+  circle1.circleX = random(50,width-50);
+  circle1.circleY = random(50,height-50);
+
+  circle2.circleX = random(50,width-50);
+  circle2.circleY = random(50,height-50);
+
+  circle3.circleX = random(50,width-50);
+  circle3.circleY = random(50,height-50);
+
+  circle4.circleX = random(50,width-50);
+  circle4.circleY = random(50,height-50);
+
+  circle5.circleX = random(50,width-50);
+  circle5.circleY = random(50,height-50);
+
+  circle6.circleX = random(50,width-50);
+  circle6.circleY = random(50,height-50);
+
+  circle7.circleX = random(50,width-50);
+  circle7.circleY = random(50,height-50);
+}
+
+
+function ballTouchesPlayer(){
+
+ //BALL 1
+ if (circle1.circleX - x < 40 && x - circle1.circleX < 40 && circle1.circleY - y < 40 && y - circle1.circleY < 40){
+  restartBalls()
+  score += -1;
+  lose()
+}
+
+//BALL 2
+if (circle2.circleX - x < 40 && x - circle2.circleX < 40 && circle2.circleY - y < 40 && y - circle2.circleY < 40){
+  restartBalls()
+  score += -1;
+  lose()
+}
+
+//BALL 3
+if (circle3.circleX - x < 40 && x - circle3.circleX < 40 && circle3.circleY - y < 40 && y - circle3.circleY < 40){
+  restartBalls()
+  score += -1;
+  lose()
+}
+
+/*
+//BALL 4
+if (circle4.circleX - x < 40 && x - circle4.circleX < 40 && circle4.circleY - y < 40 && y - circle4.circleY < 40){
+  restartBalls()
+  score += -1;
+  lose()
+}
+
+//BALL 5
+if (circle5.circleX - x < 40 && x - circle5.circleX < 40 && circle5.circleY - y < 40 && y - circle5.circleY < 40){
+  restartBalls()
+  score += -1;
+  lose()
+}
+
+//BALL 6
+if (circle6.circleX - x < 40 && x - circle6.circleX < 40 && circle6.circleY - y < 40 && y - circle6.circleY < 40){
+  restartBalls()
+  score += -1;
+  lose()
+}
+
+//Ball 7 AKA blue
+if (circle7.circleX - x < 40 && x - circle7.circleX < 40 && circle7.circleY - y < 40 && y - circle7.circleY < 40){
+  restartBalls()
+  score += -1;
+  lose()
+}
+  */
+} 
+
+
+function ballTouchesPlayerTwo(){
+
+  //BALL 1
+  if (circle1.circleX - x < 40 && x - circle1.circleX < 40 && circle1.circleY - y < 40 && y - circle1.circleY < 40){
+    restartBalls()
+    scoretwo += -2;
+    lose()
+  }
+
+  //BALL 2
+  if (circle2.circleX - x < 40 && x - circle2.circleX < 40 && circle2.circleY - y < 40 && y - circle2.circleY < 40){
+    restartBalls()
+    scoretwo += -2;
+    lose()
+  }
+
+  //BALL 3
+  if (circle3.circleX - x < 40 && x - circle3.circleX < 40 && circle3.circleY - y < 40 && y - circle3.circleY < 40){
+    restartBalls()
+    scoretwo += -2;
+    lose()
+  }
+
+  //BALL 4
+  if (circle4.circleX - x < 40 && x - circle4.circleX < 40 && circle4.circleY - y < 40 && y - circle4.circleY < 40){
+    restartBalls()
+    scoretwo += -2;
+    lose()
+  }
+
+  //BALL 5
+  if (circle5.circleX - x < 40 && x - circle5.circleX < 40 && circle5.circleY - y < 40 && y - circle5.circleY < 40){
+    restartBalls()
+    scoretwo += -2;
+    lose()
+  }
+
+  //BALL 6
+  if (circle6.circleX - x < 40 && x - circle6.circleX < 40 && circle6.circleY - y < 40 && y - circle6.circleY < 40){
+    restartBalls()
+    scoretwo += -2;
+    lose()
+  }
+
+  //Ball 7 AKA blue
+  if (circle7.circleX - x < 40 && x - circle7.circleX < 40 && circle7.circleY - y < 40 && y - circle7.circleY < 40){
+    restartBalls()
+    scoretwo += -2;
+    lose()
+  }
+} 
+
+
+function playerTouchesScoreTwo(){
+  
+  fill(color('red'))
+  square(xr,yr,w,10)
+
+  fill(color('red'))
+  circle(x,y,30)
+  //half of diameter is 15
+
+  if (x - xr < 40 && xr - x < 40 && y-yr<40 && yr-y<40){
+  xr = random(50,width-50);
+  yr = random(50,height-50)
+  scoretwo += 2;
+  caught();
+  }
+}
+
+
+function ballTouchesPlayerThree(){
+
+  //BALL 1
+  if (circle1.circleX - x < 40 && x - circle1.circleX < 40 && circle1.circleY - y < 40 && y - circle1.circleY < 40){
+    restartBalls()
+    scorethree += -3;
+    lose()
+  }
+
+  //BALL 2
+  if (circle2.circleX - x < 40 && x - circle2.circleX < 40 && circle2.circleY - y < 40 && y - circle2.circleY < 40){
+    restartBalls()
+    scorethree += -3;
+    lose()
+  }
+
+  //BALL 3
+  if (circle3.circleX - x < 40 && x - circle3.circleX < 40 && circle3.circleY - y < 40 && y - circle3.circleY < 40){
+    restartBalls()
+    scorethree += -3;
+    lose()
+  }
+
+  //BALL 4
+  if (circle4.circleX - x < 40 && x - circle4.circleX < 40 && circle4.circleY - y < 40 && y - circle4.circleY < 40){
+    restartBalls()
+    scorethree += -3;
+    lose()
+  }
+
+  //BALL 5
+  if (circle5.circleX - x < 40 && x - circle5.circleX < 40 && circle5.circleY - y < 40 && y - circle5.circleY < 40){
+    restartBalls()
+    scorethree += -3;
+    lose()
+  }
+
+  //BALL 6
+  if (circle6.circleX - x < 40 && x - circle6.circleX < 40 && circle6.circleY - y < 40 && y - circle6.circleY < 40){
+    restartBalls()
+    scorethree += -3;
+    lose()
+  }
+
+  //Ball 7 AKA blue
+  if (circle7.circleX - x < 40 && x - circle7.circleX < 40 && circle7.circleY - y < 40 && y - circle7.circleY < 40){
+    restartBalls()
+    scorethree += -3;
+    lose()
+  }
+} 
+
+
+function playerTouchesScoreThree(){
+  
+  fill(color('red'))
+  square(xr,yr,w,10)
+
+  fill(color('red'))
+  circle(x,y,30)
+  //half of diameter is 15
+
+  if (x - xr < 40 && xr - x < 40 && y-yr<40 && yr-y<40){
+  xr = random(50,width-50);
+  yr = random(50,height-50)
+  scorethree += 3;
+  caught();
+  }
+
+
+}
+
+function playerTouchesScore(){
+  
+  fill(color('red'))
+  square(xr,yr,w,10)
+
+  fill(color('red'))
+  circle(x,y,30)
+  //half of diameter is 15
+
+  if (x - xr < 40 && xr - x < 40 && y-yr<40 && yr-y<40){
+  xr = random(50,width-50);
+  yr = random(50,height-50)
+  score += 1;
+  caught();
+  }
+
+}
+
+let catchingthing = new Audio('Catch.mp4')
+function caught(){
+  catchingthing.play();
+}
+
+let loss = new Audio('damage.mp4')
+function lose(){
+  loss.play();
+}
+
+function scoreslessthanzero(){
+  if (score < 0 || scoretwo < 0 || scorethree < 0){
+    death();
+    deathScreen();
+    score = 0;
+    scoretwo = 0;
+    scorethree = 0;
+  }
+}
+
+function barrierSetup(){
+  if ( x > width){
+    x = 500;
+    death();
+    deathScreen();
+    score = 0;
+    scoretwo = 0;
+    scorethree = 0;
+  }
+
+  if ( x < 0){
+    x = 500;
+    death();
+    deathScreen();
+    score = 0;
+    scoretwo = 0;
+    scorethree = 0;
+  }
+
+  if (y > height){
+    y = 500;
+    death();
+    deathScreen();
+    score = 0;
+    scoretwo = 0;
+    scorethree = 0;
+  }
+
+  if (y < 0){
+    y = 500;
+    death();
+    deathScreen();
+    score = 0;
+    scoretwo = 0;
+    scorethree = 0;
+  }
+}
+
+var x = 500;
+var y = 500;
+
+/*function keyPressed(){
+  if (keyCode == UP_ARROW && keyIsPressed){
+    y = y - 10;
+  }
+  if (keyCode == DOWN_ARROW && keyIsPressed){
+    y = y + 10;
+  }
+  if (keyCode == LEFT_ARROW && keyIsPressed){
+    x = x - 10;
+  }
+  if (keyCode == RIGHT_ARROW && keyIsPressed){
+    x = x + 10;
+  }
+
+  //W
+  if (keyCode == 87 && keyIsPressed){
+    y = y - 10;
+  }
+  //S
+  if (keyCode == 83 && keyIsPressed){
+    y = y + 10;
+  }
+  //A
+  if (keyCode == 65 && keyIsPressed){
+    x = x - 10;
+  }
+  //D
+  if (keyCode == 68 && keyIsPressed){
+    x = x + 10;
+  }
+}*/
+
+//The SUPERIOR Movement Function
+function keyPressed() {
+  //A and Left Arrow Key
+  if (keyIsDown(65) || keyIsDown(37)) {
+    x = x - 7.5;
+  }
+  //D and Right Arrow Key
+  if (keyIsDown(68) || keyIsDown(39)) {
+    x = x + 7.5;
+  }
+  //W and Up Arrow Key
+  if (keyIsDown(87) || keyIsDown(38)) {
+    y = y - 7.5;
+  }
+  //S and Down Arrow Key
+  if (keyIsDown(83) || keyIsDown(40)) {
+    y = y + 7.5;
+  }
+}
+
+//blue
+var circle1 = {
+  circleX: 950,
+  circleY: 500,
+  xSpeed: 9,
+  ySpeed: 9,
+
+  diameter: 70
+}
+ 
+//blue
+var circle2 = {
+  circleX: 900,
+  circleY: 500,
+  xSpeed: 8,
+  ySpeed: 8,
+
+  diameter: 70
+}
+//blue
+var circle3 = {
+  circleX: 1200,
+  circleY: 500,
+  xSpeed: 10,
+  ySpeed: 10,
+
+  diameter: 70
+}
+//blue
+var circle4 = {
+  circleX: 850,
+  circleY: 500,
+  xSpeed: 12,
+  ySpeed: 12,
+
+  diameter: 70
+}
+//blue
+var circle5 = {
+  circleX: 50,
+  circleY: 500,
+  xSpeed: 5.6,
+  ySpeed: 5.6,
+
+  diameter: 70
+}
+//blue
+var circle6 = {
+  circleX: 100,
+  circleY: 500,
+  xSpeed: 8.7,
+  ySpeed: 8.7,
+
+  diameter: 70
+}
+//violet
+var circle7 = {
+  circleX: 900,
+  circleY: 500,
+  xSpeed: 8.9,
+  ySpeed: 8.9,
+  //initial speed 9
+
+  diameter: 70
+}
+
+function bouncingBalls(){
+  /*
+  //7
+
+  fill(color('blue'))
+  ellipse(circle7.circleX,circle7.circleY,circle7.diameter)
+
+  circle7.circleX += circle7.xSpeed;
+  if (circle7.circleX < 0 || circle7.circleX > width) {
+    circle7.xSpeed *= -1;
+  }
+
+  circle7.circleY += circle7.ySpeed;
+  if (circle7.circleY < 0 || circle7.circleY > height) {
+    circle7.ySpeed *= -1;
+  }
+  */
+
+  //1-6
+  fill(color('blue'))
+  ellipse(circle1.circleX,circle1.circleY,circle1.diameter)
+
+  circle1.circleX += circle1.xSpeed;
+  if (circle1.circleX < 0 || circle1.circleX > width) {
+    circle1.xSpeed *= -1;
+  }
+
+  circle1.circleY += circle1.ySpeed;
+  if (circle1.circleY < 0 || circle1.circleY > height) {
+    circle1.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle2.circleX,circle2.circleY,circle2.diameter)
+
+  circle2.circleX += circle2.xSpeed;
+  if (circle2.circleX < 0 || circle2.circleX > width) {
+    circle2.xSpeed *= -1;
+  }
+
+  circle2.circleY += circle2.ySpeed;
+  if (circle2.circleY < 0 || circle2.circleY > height) {
+    circle2.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle3.circleX,circle3.circleY,circle3.diameter)
+
+  circle3.circleX += circle3.xSpeed;
+  if (circle3.circleX < 0 || circle3.circleX > width) {
+    circle3.xSpeed *= -1;
+  }
+
+  
+  circle3.circleY += circle3.ySpeed;
+  if (circle3.circleY < 0 || circle3.circleY > height) {
+    circle3.ySpeed *= -1;
+  }
+
+  /*
+  fill(color('blue'))
+  ellipse(circle4.circleX,circle4.circleY,circle4.diameter)
+
+  circle4.circleX += circle4.xSpeed;
+  if (circle4.circleX < 0 || circle4.circleX > width) {
+    circle4.xSpeed *= -1;
+  }
+
+  circle4.circleY += circle4.ySpeed;
+  if (circle4.circleY < 0 || circle4.circleY > height) {
+    circle4.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle5.circleX,circle5.circleY,circle5.diameter)
+
+  circle5.circleX += circle5.xSpeed;
+  if (circle5.circleX < 0 || circle5.circleX > width) {
+    circle5.xSpeed *= -1;
+  }
+
+  circle5.circleY += circle5.ySpeed;
+  if (circle5.circleY < 0 || circle5.circleY > height) {
+    circle5.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle6.circleX,circle6.circleY,circle6.diameter)
+
+  circle6.circleX += circle6.xSpeed;
+  if (circle6.circleX < 0 || circle6.circleX > width) {
+    circle6.xSpeed *= -1;
+  }
+
+  circle6.circleY += circle6.ySpeed;
+  if (circle6.circleY < 0 || circle6.circleY > height) {
+    circle6.ySpeed *= -1;
+  }
+  */
+
+}
+
+function bouncingBallsTwo(){
+  /*
+  //7
+
+  fill(color('blue'))
+  ellipse(circle7.circleX,circle7.circleY,circle7.diameter)
+
+  circle7.circleX += circle7.xSpeed;
+  if (circle7.circleX < 0 || circle7.circleX > width) {
+    circle7.xSpeed *= -1;
+  }
+
+  circle7.circleY += circle7.ySpeed;
+  if (circle7.circleY < 0 || circle7.circleY > height) {
+    circle7.ySpeed *= -1;
+  }
+  */
+  //1-6
+  fill(color('blue'))
+  ellipse(circle1.circleX,circle1.circleY,circle1.diameter)
+
+  circle1.circleX += circle1.xSpeed;
+  if (circle1.circleX < 0 || circle1.circleX > width) {
+    circle1.xSpeed *= -1;
+  }
+
+  circle1.circleY += circle1.ySpeed;
+  if (circle1.circleY < 0 || circle1.circleY > height) {
+    circle1.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle2.circleX,circle2.circleY,circle2.diameter)
+
+  circle2.circleX += circle2.xSpeed;
+  if (circle2.circleX < 0 || circle2.circleX > width) {
+    circle2.xSpeed *= -1;
+  }
+
+  circle2.circleY += circle2.ySpeed;
+  if (circle2.circleY < 0 || circle2.circleY > height) {
+    circle2.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle3.circleX,circle3.circleY,circle3.diameter)
+
+  circle3.circleX += circle3.xSpeed;
+  if (circle3.circleX < 0 || circle3.circleX > width) {
+    circle3.xSpeed *= -1;
+  }
+
+  circle3.circleY += circle3.ySpeed;
+  if (circle3.circleY < 0 || circle3.circleY > height) {
+    circle3.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle4.circleX,circle4.circleY,circle4.diameter)
+
+  circle4.circleX += circle4.xSpeed;
+  if (circle4.circleX < 0 || circle4.circleX > width) {
+    circle4.xSpeed *= -1;
+  }
+
+  circle4.circleY += circle4.ySpeed;
+  if (circle4.circleY < 0 || circle4.circleY > height) {
+    circle4.ySpeed *= -1;
+  }
+   
+
+  fill(color('blue'))
+  ellipse(circle5.circleX,circle5.circleY,circle5.diameter)
+
+  circle5.circleX += circle5.xSpeed;
+  if (circle5.circleX < 0 || circle5.circleX > width) {
+    circle5.xSpeed *= -1;
+  }
+
+  circle5.circleY += circle5.ySpeed;
+  if (circle5.circleY < 0 || circle5.circleY > height) {
+    circle5.ySpeed *= -1;
+  }
+  /*
+ 
+
+  fill(color('blue'))
+  ellipse(circle6.circleX,circle6.circleY,circle6.diameter)
+
+  circle6.circleX += circle6.xSpeed;
+  if (circle6.circleX < 0 || circle6.circleX > width) {
+    circle6.xSpeed *= -1;
+  }
+
+  circle6.circleY += circle6.ySpeed;
+  if (circle6.circleY < 0 || circle6.circleY > height) {
+    circle6.ySpeed *= -1;
+  }
+  */
+
+}
+
+function bouncingBallsThree(){
+  //7
+
+  fill(color('blue'))
+  ellipse(circle7.circleX,circle7.circleY,circle7.diameter)
+
+  circle7.circleX += circle7.xSpeed;
+  if (circle7.circleX < 0 || circle7.circleX > width) {
+    circle7.xSpeed *= -1;
+  }
+
+  circle7.circleY += circle7.ySpeed;
+  if (circle7.circleY < 0 || circle7.circleY > height) {
+    circle7.ySpeed *= -1;
+  }
+
+  //1-6
+  fill(color('blue'))
+  ellipse(circle1.circleX,circle1.circleY,circle1.diameter)
+
+  circle1.circleX += circle1.xSpeed;
+  if (circle1.circleX < 0 || circle1.circleX > width) {
+    circle1.xSpeed *= -1;
+  }
+
+  circle1.circleY += circle1.ySpeed;
+  if (circle1.circleY < 0 || circle1.circleY > height) {
+    circle1.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle2.circleX,circle2.circleY,circle2.diameter)
+
+  circle2.circleX += circle2.xSpeed;
+  if (circle2.circleX < 0 || circle2.circleX > width) {
+    circle2.xSpeed *= -1;
+  }
+
+  circle2.circleY += circle2.ySpeed;
+  if (circle2.circleY < 0 || circle2.circleY > height) {
+    circle2.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle3.circleX,circle3.circleY,circle3.diameter)
+
+  circle3.circleX += circle3.xSpeed;
+  if (circle3.circleX < 0 || circle3.circleX > width) {
+    circle3.xSpeed *= -1;
+  }
+
+  circle3.circleY += circle3.ySpeed;
+  if (circle3.circleY < 0 || circle3.circleY > height) {
+    circle3.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle4.circleX,circle4.circleY,circle4.diameter)
+
+  circle4.circleX += circle4.xSpeed;
+  if (circle4.circleX < 0 || circle4.circleX > width) {
+    circle4.xSpeed *= -1;
+  }
+
+  circle4.circleY += circle4.ySpeed;
+  if (circle4.circleY < 0 || circle4.circleY > height) {
+    circle4.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle5.circleX,circle5.circleY,circle5.diameter)
+
+  circle5.circleX += circle5.xSpeed;
+  if (circle5.circleX < 0 || circle5.circleX > width) {
+    circle5.xSpeed *= -1;
+  }
+
+  circle5.circleY += circle5.ySpeed;
+  if (circle5.circleY < 0 || circle5.circleY > height) {
+    circle5.ySpeed *= -1;
+  }
+
+  fill(color('blue'))
+  ellipse(circle6.circleX,circle6.circleY,circle6.diameter)
+
+  circle6.circleX += circle6.xSpeed;
+  if (circle6.circleX < 0 || circle6.circleX > width) {
+    circle6.xSpeed *= -1;
+  }
+
+  circle6.circleY += circle6.ySpeed;
+  if (circle6.circleY < 0 || circle6.circleY > height) {
+    circle6.ySpeed *= -1;
+  }
+  
+
+}
+
+//======================================================================================
+
+
+
+//======================================================================================
+
+//Click to enter functions
+function mousePressed(){
+	if(screen==0){
+  	screen=1
+    click.play();
+    mainMusic();
+  }else if(screen==2){
+  	screen=0
+    click.play();
+  }else if(screen==3){
+    screen=4
+    click.play();
+  }else if(screen==5){
+    screen=6
+    click.play();
+  }
+}
+//======================================================================================
+
+//Audio Files
+let click = new Audio('Click.mp4')
+function win(){
+  click.play();
+}
+    
+let scream = new Audio('Scream.mp4');
+function death(){
+  scream.play();
+}
+
+let cat = new Audio('Caught.mp4');
+function captured(){
+  cat.play();
+}
+
+let cheer = new Audio('Shine.mp3');
+function cheering(){
+  cheer.play();
+}
+
+let mainMenu = new Audio('Beast.mp3');
+function mainMusic(){
+  mainMenu.play();
+  mainMenu.loop();
+  mainMenu.volume(0.9);
+}
+
+let damage = new Audio('noHP.mp4');
+function damagetaken(){
+  damage.play();
+}
+
+//
+//let sparkle = new Audio('');
+//function sparkle(){
+//  click.sparkle();
+//}
+//
+
+//======================================================================================
+
+//Changes the X-coordinates of the obstacles randomly
+function pickRandom(){
+	x = random(20,width-20)
+}
+
+//======================================================================================
+
+
+//======================================================================================
+
+//First Level of the Game
+  function gameOn(){
+  clear()
+  textSize(20);
+  text("Gas Can: " + score + "/10", 200,20,200)
+  text("Red Balls: +1 Gas Can", 500,20,600)
+  fill(color('red'))
+  text("Movement: ←↑↓→ or WASD", 850,20,500)
+  fill(color('Blue'))
+  text("Blue Balls: -1 Gas Can",1200,20,500)
+
+  fill(color('red'))
+
+  scoreslessthanzero()
+
+  bouncingBalls();
+  keyPressed();
+  barrierSetup();
+  playerTouchesScore();
+  ballTouchesPlayer();
+
+  if(score == 10 || score > 10){
+    screen = 3
+  }
+}
+//======================================================================================
+
+
+//Second Level of the Game
+  function gameOnTwo(){
+  clear()
+  textSize(20);
+  text("Gas Cans: " + scoretwo + "/20" , 200,20,200)
+  text("Red Rectangle: +2 Gas Can", 500,20,600)
+  fill(color('Red'))
+  text("Movement: ←↑↓→ or WASD", 850,20,500)
+  fill(color('blue'))
+  text("Blue Balls: -2 Gas Can",1200,20,500)
+  fill(color('Blue'))
+
+  scoreslessthanzero()
+
+  bouncingBallsTwo();
+  keyPressed();
+  barrierSetup();
+  playerTouchesScoreTwo();
+  ballTouchesPlayerTwo();
+
+  if(scoretwo == 20 || scoretwo > 20){
+    screen = 5
+  }
+}  
+//======================================================================================
+
+
+//Third Level of The Game
+function gameOnThree(){
+  clear()
+  textSize(20);
+  text("Gas Can: " + scorethree + "/30",200,20,200)
+  text("Red Rectangle: +3 Gas Can", 500,20,600)
+  fill(color('Red'))
+  text("Movement: ←↑↓→ or WASD", 850,20,500)
+  fill(color('Blue'))
+  text("Blue Balls: -3 Gas Can",1200,20,500)
+  fill(color('Blue'))
+
+  scoreslessthanzero()
+
+  bouncingBallsThree();
+  keyPressed();
+  barrierSetup();
+  playerTouchesScoreThree();
+  ballTouchesPlayerThree();
+
+  if(scorethree == 30 || scorethree > 30){
+    screen = 69;
+    window.location.href="escape.html";
+  }
+}
+//======================================================================================
+
+//The Welcoming Pages of the Game
+function leveltwo(){
+    clear()
+		fill(255)
+    textSize(40)
+		textAlign(CENTER);
+		text('Bonnie Mode', width / 2, height / 2)
+		text("Movement: ←↑↓→ or WASD", width / 2, height / 2 + 40);
+    text('You check the meter, not enough Gas', width / 2, height / 2 + 80);
+    text('Click to Continue', width / 2, height / 2 + 120);
+}
+
+function levelthree(){
+    clear()
+		fill(255)
+    textSize(40)
+		textAlign(CENTER);
+		text('Bonnie Mode', width / 2, height / 2)
+		text('Movement: ←↑↓→ or WASDe', width / 2, height / 2 + 40);
+    text('Barely there, but not enough', width / 2, height / 2 + 80);
+    text('Click to Continue', width / 2, height / 2 + 120);
+
+}
+
+function anotherGame(){
+  clear()
+	fill(255)
+  textSize(50);
+	textAlign(CENTER);
+	text('YOU GET LOSE IN THE CAAAVE ', width / 2, height / 2)
+
+}
+//======================================================================================
+    
+//Start and end screens
+function startScreen(){
+    clear()
+		fill(255)
+		textAlign(CENTER);
+    textSize(30);
+		text("Bonnie's Near..", width / 2, height / 2 - 80) 
+    text("Collect with what you need (click to start)", width / 2, height / 2 + 50);
+		text("You ran away with video fragments from that Chicken..", width / 2, height / 2 + - 30);
+    text('But you need gas for you moped. Luckily a shack nearby is filled with them', width / 2, height / 2 + 10);
+    text('Movement: ←↑↓→ or WASD', width / 2, height / 2 + 90);
+
+}
+//======================================================================================
+
+//======================================================================================
+
+  </script>
+    
+  </body>
+</html>
